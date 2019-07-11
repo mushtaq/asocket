@@ -1,9 +1,10 @@
-package com.thoughtworks
+package com.thoughtworks.demo.server
+
+import java.util.concurrent.ThreadLocalRandom
 
 import io.rsocket._
 import io.rsocket.util.ByteBufPayload
 import reactor.core.publisher.Mono
-import java.util.concurrent.ThreadLocalRandom
 
 class PingHandler(data: Array[Byte]) extends SocketAcceptor {
   ThreadLocalRandom.current.nextBytes(data)
