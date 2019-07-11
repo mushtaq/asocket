@@ -1,4 +1,4 @@
-package com.thoughtworks.demo.server
+package com.thoughtworks.framework.server
 
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, Materializer}

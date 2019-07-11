@@ -1,7 +1,7 @@
-package com.thoughtworks.demo.server
+package com.thoughtworks.framework.server
 
-import io.rsocket.{Closeable, RSocketFactory, SocketAcceptor}
 import io.rsocket.transport.ServerTransport
+import io.rsocket.{Closeable, RSocketFactory, SocketAcceptor}
 
 class RSocketServer(serverTransport: ServerTransport[_ <: Closeable], socketAcceptor: SocketAcceptor) {
   def start(): Unit = {

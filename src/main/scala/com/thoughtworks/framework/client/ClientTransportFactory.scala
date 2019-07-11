@@ -1,4 +1,4 @@
-package com.thoughtworks.demo.client
+package com.thoughtworks.framework.client
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.model.ws.WebSocketRequest
