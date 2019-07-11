@@ -1,11 +1,12 @@
 package com.thoughtworks.framework.server
 
-import io.rsocket.SocketAcceptor
+import io.rsocket.RSocket
 
 class ServerWiring {
-  def start(socketAcceptor: SocketAcceptor): Unit = {
+  def start(rSocket: RSocket): Unit = {
     val serverTransportFactory = new ServerTransportFactory
-    val rSocketServer          = new RSocketServer(serverTransportFactory.Tcp, socketAcceptor)
+    val serviceHandler         = new ServiceHandler(rSocket)
+    val rSocketServer          = new RSocketServer(serverTransportFactory.Tcp, serviceHandler)
     rSocketServer.start()
   }
 }
