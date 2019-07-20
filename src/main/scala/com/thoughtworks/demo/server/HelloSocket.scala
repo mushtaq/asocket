@@ -1,11 +1,13 @@
 package com.thoughtworks.demo.server
 
+import com.thoughtworks.framework.api.AbstractAkkaRSocket
 import io.rsocket._
 import io.rsocket.util.DefaultPayload
-import reactor.core.publisher.Mono
 
-class HelloSocket extends AbstractRSocket {
-  override def requestResponse(payload: Payload): Mono[Payload] = {
-    Mono.just(DefaultPayload.create(s"Hello ${payload.getDataUtf8}"))
+import scala.concurrent.Future
+
+class HelloSocket extends AbstractAkkaRSocket {
+  override def requestResponse(payload: Payload): Future[Payload] = {
+    Future.successful(DefaultPayload.create(s"Hello ${payload.getDataUtf8}"))
   }
 }
