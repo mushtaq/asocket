@@ -1,20 +1,35 @@
 import Dependencies._
 
-ThisBuild / scalaVersion := "2.12.8"
-ThisBuild / version := "0.1.0-SNAPSHOT"
-ThisBuild / organization := "com.thoughtworks"
-ThisBuild / organizationName := "rsocket-demo"
+inThisBuild(
+  Seq(
+    scalaVersion := "2.12.8",
+    version := "0.1.0-SNAPSHOT",
+    organization := "com.thoughtworks",
+    organizationName := "rsocket-demo"
+  )
+)
 
-lazy val root = (project in file("."))
+lazy val root = project
+  .in(file("."))
+  .aggregate(`rsocket-core-akka`, sample)
+
+lazy val sample = project
+  .dependsOn(`rsocket-core-akka`)
   .settings(
-    name := "rsocket-demo",
+    resolvers += Resolver.jcenterRepo,
+    libraryDependencies ++= Seq(
+      `rsocket-test`,
+      `scalatest` % Test
+    )
+  )
+
+lazy val `rsocket-core-akka` = project
+  .settings(
     resolvers += Resolver.jcenterRepo,
     libraryDependencies ++= Seq(
       `akka-http`,
       `akka-stream`,
       `rsocket-core`,
-      `rsocket-transport-akka`,
-      `rsocket-test`,
-      `scalatest`    % Test,
+      `rsocket-transport-akka`
     )
   )
