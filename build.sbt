@@ -9,11 +9,11 @@ inThisBuild(
   )
 )
 
-lazy val root = project
+lazy val `rsocket-demo` = project
   .in(file("."))
-  .aggregate(`rsocket-core-akka`, sample)
+  .aggregate(`rsocket-core-akka`, demo)
 
-lazy val sample = project
+lazy val demo = project
   .dependsOn(`rsocket-core-akka`)
   .settings(
     resolvers += Resolver.jcenterRepo,
