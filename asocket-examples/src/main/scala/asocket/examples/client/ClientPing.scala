@@ -14,7 +14,7 @@ object ClientPing {
     val wiring = new ClientWiring()
     import wiring._
     val pingClient = new PingClient(
-      Mono.fromFuture(wiring.socket().toJava.toCompletableFuture).map(new AToRSocket(_))
+      Mono.fromFuture(wiring.socket().toJava.toCompletableFuture).map(new AToRSocket(_, converters))
     )
 
     val recorder = pingClient.startTracker(Duration.ofSeconds(1))

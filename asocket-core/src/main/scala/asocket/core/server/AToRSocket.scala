@@ -1,27 +1,13 @@
 package asocket.core.server
 
-import akka.NotUsed
-import akka.stream.Materializer
-import akka.stream.scaladsl.{Sink, Source}
 import asocket.core.api.ASocket
+import asocket.core.extensions.ARConverters
 import io.rsocket.{Payload, RSocket}
 import org.reactivestreams.Publisher
 import reactor.core.publisher.{Flux, Mono}
 
-import scala.compat.java8.FutureConverters.FutureOps
-import scala.concurrent.{ExecutionContext, Future}
-
-class AToRSocket(akkaRSocket: ASocket)(implicit mat: Materializer, ec: ExecutionContext) extends RSocket {
-  implicit class RichFuture[T](future: Future[T]) {
-    def toMono: Mono[T]        = Mono.fromFuture(future.toJava.toCompletableFuture)
-    def toVoidMono: Mono[Void] = Mono.fromFuture(future.map(_ => null).toJava.toCompletableFuture)
-  }
-  implicit class RichSource[T, Mat](source: Source[T, Mat]) {
-    def toFlux: Flux[T] = Flux.from(source.runWith(Sink.asPublisher(false)))
-  }
-  implicit class RichPublisher[T](publisher: Publisher[T]) {
-    def toSource: Source[T, NotUsed] = Source.fromPublisher(publisher)
-  }
+class AToRSocket(akkaRSocket: ASocket, converters: ARConverters) extends RSocket {
+  import converters._
 
   override def fireAndForget(payload: Payload): Mono[Void]                 = akkaRSocket.fireAndForget(payload).toVoidMono
   override def requestResponse(payload: Payload): Mono[Payload]            = akkaRSocket.requestResponse(payload).toMono
