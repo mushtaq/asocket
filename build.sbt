@@ -4,32 +4,42 @@ inThisBuild(
   Seq(
     scalaVersion := "2.12.8",
     version := "0.1.0-SNAPSHOT",
-    organization := "com.thoughtworks",
-    organizationName := "rsocket-demo"
+    organization := "com.github.mushtaq.asocket",
+    organizationName := "ThoughtWorks",
+    resolvers += Resolver.jcenterRepo
   )
 )
 
-lazy val `rsocket-demo` = project
+lazy val `root` = project
   .in(file("."))
-  .aggregate(`rsocket-core-akka`, demo)
+  .aggregate(
+    `asocket-examples`,
+    `asocket`,
+    `asocket-core`
+  )
 
-lazy val demo = project
-  .dependsOn(`rsocket-core-akka`)
+lazy val `asocket-examples` = project
+  .dependsOn(`asocket`)
   .settings(
-    resolvers += Resolver.jcenterRepo,
     libraryDependencies ++= Seq(
       `rsocket-test`,
       `scalatest` % Test
     )
   )
 
-lazy val `rsocket-core-akka` = project
+lazy val `asocket` = project
+  .dependsOn(`asocket-core`)
   .settings(
-    resolvers += Resolver.jcenterRepo,
     libraryDependencies ++= Seq(
-      `akka-http`,
-      `akka-stream`,
+      `rsocket-transport-akka`,
+      `akka-http`
+    )
+  )
+
+lazy val `asocket-core` = project
+  .settings(
+    libraryDependencies ++= Seq(
       `rsocket-core`,
-      `rsocket-transport-akka`
+      `akka-stream`
     )
   )
