@@ -1,4 +1,5 @@
 import Dependencies._
+import Borer._
 
 inThisBuild(
   Seq(
@@ -7,7 +8,7 @@ inThisBuild(
     organization := "com.github.mushtaq.asocket",
     organizationName := "ThoughtWorks",
     resolvers += Resolver.jcenterRepo,
-    scalafmtOnCompile := true,
+    scalafmtOnCompile := true
   )
 )
 
@@ -33,7 +34,10 @@ lazy val `asocket` = project
   .settings(
     libraryDependencies ++= Seq(
       `rsocket-transport-akka`,
-      `akka-http`
+      `akka-http`,
+      `borer-core`,
+      `borer-derivation`,
+      `borer-compat-akka`
     )
   )
 

@@ -8,3 +8,12 @@ object Dependencies {
   val `rsocket-core`           = "io.rsocket"        % "rsocket-core"            % "0.11.18"
   val `rsocket-test`           = "io.rsocket"        % "rsocket-test"            % "0.11.18"
 }
+
+object Borer {
+  val Version = "0.10.0"
+  val Org     = "io.bullet"
+
+  val `borer-core`        = Org %% "borer-core"        % Version
+  val `borer-derivation`  = Org %% "borer-derivation"  % Version
+  val `borer-compat-akka` = Org %% "borer-compat-akka" % Version
+}

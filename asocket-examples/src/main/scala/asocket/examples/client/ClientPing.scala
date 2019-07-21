@@ -4,7 +4,7 @@ import java.time.Duration
 
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, Materializer}
-import asocket.client.ClientWiring
+import asocket.core.client.ASocketClient
 import asocket.core.extensions.ARConverters
 import asocket.core.server.AToRSocket
 import io.rsocket.test.PingClient
@@ -26,7 +26,7 @@ object ClientPing {
     //    val wsTransport  = new WebsocketClientTransport(WebSocketRequest.fromTargetUriString(s"ws://localhost:7000"))
 
     val pingClient = new PingClient(
-      Mono.fromFuture(new ClientWiring().socket(tcpTransport).toJava.toCompletableFuture).map(new AToRSocket(_, converters))
+      Mono.fromFuture(new ASocketClient().socket(tcpTransport).toJava.toCompletableFuture).map(new AToRSocket(_, converters))
     )
 
     val recorder = pingClient.startTracker(Duration.ofSeconds(1))

@@ -2,13 +2,15 @@ package asocket.examples.client
 
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, Materializer}
-import asocket.client.ClientWiring
+import asocket.codec.FromPayload.RichPayload
+import asocket.codec.ToPayload.RichInput
+import asocket.core.client.ASocketClient
+import asocket.examples.api.{HelloRequest, SimpleCodecs, SimpleRequest, SquareRequest}
 import io.rsocket.transport.akka.client.TcpClientTransport
-import io.rsocket.util.DefaultPayload
 
 import scala.concurrent.ExecutionContext
 
-object ClientHello {
+object SimpleClient extends SimpleCodecs {
   def main(args: Array[String]): Unit = {
     implicit val system: ActorSystem  = ActorSystem("server")
     implicit val mat: Materializer    = ActorMaterializer()
@@ -17,8 +19,9 @@ object ClientHello {
     val tcpTransport = new TcpClientTransport("localhost", 6000)
 //    val wsTransport  = new WebsocketClientTransport(WebSocketRequest.fromTargetUriString(s"ws://localhost:7000"))
 
-    new ClientWiring().socket(tcpTransport).foreach { socket =>
-      socket.requestResponse(DefaultPayload.create("mushtaq")).foreach(x => println(x.getDataUtf8))
+    new ASocketClient().socket(tcpTransport).foreach { socket =>
+      socket.requestResponse(HelloRequest("mushtaq").toPayload[SimpleRequest]).foreach(x => println(x.to[String]))
+      socket.requestResponse(SquareRequest(9).toPayload[SimpleRequest]).foreach(x => println(x.to[Int]))
     }
   }
 }

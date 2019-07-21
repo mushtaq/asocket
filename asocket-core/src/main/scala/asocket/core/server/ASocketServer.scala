@@ -1,19 +1,23 @@
 package asocket.core.server
 
+import akka.actor.ActorSystem
+import akka.stream.{ActorMaterializer, Materializer}
+import asocket.core.api.ASocket
 import asocket.core.extensions.ARConverters
+import io.rsocket.Closeable
 import io.rsocket.transport.ServerTransport
-import io.rsocket.{Closeable, RSocketFactory, SocketAcceptor}
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class ASocketServer(serverTransport: ServerTransport[_ <: Closeable], socketAcceptor: SocketAcceptor) {
-  def start(converters: ARConverters): Future[SocketBinding] = {
-    import converters._
-    RSocketFactory.receive
-      .frameDecoder(_.retain)
-      .acceptor(socketAcceptor)
-      .transport(serverTransport)
-      .start
-      .mapS(SocketBinding.from(_, converters))
+class ASocketServer {
+  def start(socket: ASocket, serverTransport: ServerTransport[_ <: Closeable])(
+      implicit system: ActorSystem
+  ): Future[SocketBinding] = {
+    implicit val mat: Materializer    = ActorMaterializer()
+    implicit val ec: ExecutionContext = system.dispatcher
+    val converters                    = new ARConverters()
+
+    val serviceHandler = new ServiceHandler(socket, converters)
+    new ASocketServerHelper(serverTransport, serviceHandler).start(converters)
   }
 }
