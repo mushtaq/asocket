@@ -3,7 +3,7 @@ package asocket.examples.client
 import java.time.Duration
 
 import asocket.client.ClientWiring
-import asocket.core.server.AkkaToRSocket
+import asocket.core.server.AToRSocket
 import io.rsocket.test.PingClient
 import reactor.core.publisher.Mono
 
@@ -14,7 +14,7 @@ object ClientPing {
     val wiring = new ClientWiring()
     import wiring._
     val pingClient = new PingClient(
-      Mono.fromFuture(wiring.socket().toJava.toCompletableFuture).map(new AkkaToRSocket(_))
+      Mono.fromFuture(wiring.socket().toJava.toCompletableFuture).map(new AToRSocket(_))
     )
 
     val recorder = pingClient.startTracker(Duration.ofSeconds(1))

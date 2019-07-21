@@ -6,7 +6,7 @@ import io.rsocket.Payload
 
 import scala.concurrent.Future
 
-trait AkkaRSocket {
+trait ASocket {
   def fireAndForget(payload: Payload): Future[Done]
   def requestResponse(payload: Payload): Future[Payload]
   def requestStream(payload: Payload): Source[Payload, NotUsed]

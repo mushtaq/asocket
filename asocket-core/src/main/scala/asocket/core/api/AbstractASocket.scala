@@ -6,7 +6,7 @@ import io.rsocket.Payload
 
 import scala.concurrent.{Future, Promise}
 
-abstract class AbstractAkkaRSocket extends AkkaRSocket {
+abstract class AbstractASocket extends ASocket {
   final private val promisedDone: Promise[Done] = Promise()
 
   override def fireAndForget(payload: Payload): Future[Done] = {

@@ -3,14 +3,14 @@ package asocket.core.client
 import akka.stream.Materializer
 import akka.stream.scaladsl.{Sink, Source}
 import akka.{Done, NotUsed}
-import asocket.core.api.AkkaRSocket
+import asocket.core.api.ASocket
 import io.rsocket.{Payload, RSocket}
 import org.reactivestreams.Publisher
 
 import scala.compat.java8.FutureConverters.CompletionStageOps
 import scala.concurrent.{ExecutionContext, Future}
 
-class RToAkkaSocket(socket: RSocket)(implicit mat: Materializer, ec: ExecutionContext) extends AkkaRSocket {
+class RToASocket(socket: RSocket)(implicit mat: Materializer, ec: ExecutionContext) extends ASocket {
   implicit class RichSource[T, Mat](source: Source[T, Mat]) {
     def toPublisher: Publisher[T] = source.runWith(Sink.asPublisher(false))
   }

@@ -2,13 +2,13 @@ package asocket.examples.server
 
 import java.util.concurrent.ThreadLocalRandom
 
-import asocket.core.api.AbstractAkkaRSocket
+import asocket.core.api.AbstractASocket
 import io.rsocket._
 import io.rsocket.util.ByteBufPayload
 
 import scala.concurrent.Future
 
-class PingSocket(data: Array[Byte]) extends AbstractAkkaRSocket {
+class PingSocket(data: Array[Byte]) extends AbstractASocket {
   ThreadLocalRandom.current.nextBytes(data)
   val pong: Payload = ByteBufPayload.create(data)
 

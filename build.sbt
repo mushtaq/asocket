@@ -6,7 +6,8 @@ inThisBuild(
     version := "0.1.0-SNAPSHOT",
     organization := "com.github.mushtaq.asocket",
     organizationName := "ThoughtWorks",
-    resolvers += Resolver.jcenterRepo
+    resolvers += Resolver.jcenterRepo,
+    scalafmtOnCompile := true,
   )
 )
 
