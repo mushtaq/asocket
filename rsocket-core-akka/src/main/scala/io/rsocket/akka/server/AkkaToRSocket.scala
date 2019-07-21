@@ -1,9 +1,9 @@
-package com.thoughtworks.framework.server
+package io.rsocket.akka.server
 
 import akka.{Done, NotUsed}
 import akka.stream.Materializer
 import akka.stream.scaladsl.{Sink, Source}
-import com.thoughtworks.framework.api.AkkaRSocket
+import io.rsocket.akka.api.AkkaRSocket
 import io.rsocket.{Payload, RSocket}
 import org.reactivestreams.Publisher
 import reactor.core.publisher.{Flux, Mono}

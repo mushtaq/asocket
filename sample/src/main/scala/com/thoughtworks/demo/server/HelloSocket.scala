@@ -1,7 +1,7 @@
 package com.thoughtworks.demo.server
 
-import com.thoughtworks.framework.api.AbstractAkkaRSocket
 import io.rsocket._
+import io.rsocket.akka.api.AbstractAkkaRSocket
 import io.rsocket.util.DefaultPayload
 
 import scala.concurrent.Future

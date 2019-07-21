@@ -1,6 +1,6 @@
 package com.thoughtworks.demo.server
 
-import com.thoughtworks.framework.server.ServerWiring
+import io.rsocket.akka.server.ServerWiring
 
 object ServerMain {
 //  val socket = new PingSocket()

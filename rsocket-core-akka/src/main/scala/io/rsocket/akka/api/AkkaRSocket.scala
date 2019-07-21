@@ -1,4 +1,4 @@
-package com.thoughtworks.framework.api
+package io.rsocket.akka.api
 
 import akka.{Done, NotUsed}
 import akka.stream.scaladsl.Source

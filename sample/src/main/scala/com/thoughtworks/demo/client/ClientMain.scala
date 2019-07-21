@@ -2,9 +2,9 @@ package com.thoughtworks.demo.client
 
 import java.time.Duration
 
-import com.thoughtworks.framework.client.ClientWiring
-import com.thoughtworks.framework.server.AkkaToRSocket
 import io.rsocket.Payload
+import io.rsocket.akka.client.ClientWiring
+import io.rsocket.akka.server.AkkaToRSocket
 import io.rsocket.test.PingClient
 import io.rsocket.util.DefaultPayload
 import reactor.core.publisher.Mono

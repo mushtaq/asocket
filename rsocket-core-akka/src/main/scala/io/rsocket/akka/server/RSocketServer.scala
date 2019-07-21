@@ -1,4 +1,4 @@
-package com.thoughtworks.framework.server
+package io.rsocket.akka.server
 
 import io.rsocket.transport.ServerTransport
 import io.rsocket.{Closeable, RSocketFactory, SocketAcceptor}

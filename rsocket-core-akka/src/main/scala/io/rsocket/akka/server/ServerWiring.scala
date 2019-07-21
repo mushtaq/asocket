@@ -1,8 +1,8 @@
-package com.thoughtworks.framework.server
+package io.rsocket.akka.server
 
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, Materializer}
-import com.thoughtworks.framework.api.AkkaRSocket
+import io.rsocket.akka.api.AkkaRSocket
 import io.rsocket.transport.akka.server.TcpServerTransport
 
 import scala.concurrent.ExecutionContext

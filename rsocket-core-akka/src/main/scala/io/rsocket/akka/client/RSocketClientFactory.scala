@@ -1,8 +1,8 @@
-package com.thoughtworks.framework.client
+package io.rsocket.akka.client
 
 import akka.stream.Materializer
-import com.thoughtworks.framework.api.AkkaRSocket
 import io.rsocket.RSocketFactory
+import io.rsocket.akka.api.AkkaRSocket
 import io.rsocket.transport.ClientTransport
 
 import scala.compat.java8.FutureConverters.CompletionStageOps
