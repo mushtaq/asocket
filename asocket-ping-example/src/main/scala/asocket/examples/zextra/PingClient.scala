@@ -7,14 +7,14 @@ import akka.stream.{ActorMaterializer, Materializer}
 import asocket.core.client.ASocketClient
 import asocket.core.extensions.ARConverters
 import asocket.core.server.AToRSocket
-import io.rsocket.test.PingClient
+import io.rsocket.test
 import io.rsocket.transport.akka.client.TcpClientTransport
 import reactor.core.publisher.Mono
 
 import scala.compat.java8.FutureConverters.FutureOps
 import scala.concurrent.ExecutionContext
 
-object ClientPing {
+object PingClient {
   def main(args: Array[String]): Unit = {
 
     implicit val system: ActorSystem  = ActorSystem("server")
@@ -25,7 +25,7 @@ object ClientPing {
     val tcpTransport = new TcpClientTransport("localhost", 6000)
     //    val wsTransport  = new WebsocketClientTransport(WebSocketRequest.fromTargetUriString(s"ws://localhost:7000"))
 
-    val pingClient = new PingClient(
+    val pingClient = new test.PingClient(
       Mono.fromFuture(new ASocketClient().socket(tcpTransport).toJava.toCompletableFuture).map(new AToRSocket(_, converters))
     )
 

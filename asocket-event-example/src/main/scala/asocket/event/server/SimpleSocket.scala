@@ -1,10 +1,10 @@
-package asocket.examples.server
+package asocket.event.server
 
+import asocket.borer.codecs.ASocketCodecs
 import asocket.core.api.AbstractASocket
 import asocket.core.api.FromPayload.RichPayload
 import asocket.core.api.ToPayload.RichFutureInput
 import asocket.examples.api.{HelloRequest, SimpleCodecs, SimpleRequest, SquareRequest}
-import asocket.examples.codecs.ASocketCodecs
 import io.rsocket._
 
 import scala.concurrent.{ExecutionContext, Future}

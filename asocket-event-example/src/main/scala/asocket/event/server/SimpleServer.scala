@@ -1,4 +1,4 @@
-package asocket.examples.server
+package asocket.event.server
 
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, Materializer}
@@ -7,7 +7,7 @@ import io.rsocket.transport.akka.server.TcpServerTransport
 
 import scala.concurrent.ExecutionContext
 
-object ServerMain {
+object SimpleServer {
   def main(args: Array[String]): Unit = {
 
     implicit val system: ActorSystem  = ActorSystem("server")

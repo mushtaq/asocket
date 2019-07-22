@@ -15,8 +15,20 @@ inThisBuild(
 lazy val `root` = project
   .in(file("."))
   .aggregate(
+    `asocket-borer`,
     `asocket-core`,
-    `asocket-examples`
+    `asocket-event-example`,
+    `asocket-ping-example`,
+    `event-service`
+  )
+
+lazy val `asocket-borer` = project
+  .dependsOn(`asocket-core`)
+  .settings(
+    libraryDependencies ++= Seq(
+      `borer-core`,
+      `borer-derivation`
+    )
   )
 
 lazy val `asocket-core` = project
@@ -27,14 +39,28 @@ lazy val `asocket-core` = project
     )
   )
 
-lazy val `asocket-examples` = project
+lazy val `asocket-event-example` = project
+  .dependsOn(`event-service`, `asocket-core`, `asocket-borer`)
+  .settings(
+    libraryDependencies ++= Seq(
+      `rsocket-transport-akka`
+    )
+  )
+
+lazy val `asocket-ping-example` = project
   .dependsOn(`asocket-core`)
   .settings(
     libraryDependencies ++= Seq(
       `rsocket-transport-akka`,
-      `borer-core`,
-      `borer-derivation`,
       `rsocket-test`,
       `scalatest` % Test
+    )
+  )
+
+lazy val `event-service` = project
+  .settings(
+    libraryDependencies ++= Seq(
+      `borer-core`,
+      `borer-derivation`
     )
   )

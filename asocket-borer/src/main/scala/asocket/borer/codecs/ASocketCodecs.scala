@@ -1,4 +1,4 @@
-package asocket.examples.codecs
+package asocket.borer.codecs
 
 import asocket.core.api.{FromPayload, ToPayload}
 import io.bullet.borer.{Decoder, Encoder, Target}
