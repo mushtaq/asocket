@@ -6,11 +6,12 @@ import asocket.core.api.FromPayload.RichFuturePayload
 import asocket.core.api.ToPayload.RichInput
 import asocket.core.client.ASocketClient
 import asocket.examples.api.{HelloRequest, SimpleCodecs, SimpleRequest, SquareRequest}
+import asocket.examples.codecs.ASocketCodecs
 import io.rsocket.transport.akka.client.TcpClientTransport
 
 import scala.concurrent.ExecutionContext
 
-object SimpleClient extends SimpleCodecs {
+object SimpleClient extends SimpleCodecs with ASocketCodecs {
   def main(args: Array[String]): Unit = {
     implicit val system: ActorSystem  = ActorSystem("server")
     implicit val mat: Materializer    = ActorMaterializer()
