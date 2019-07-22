@@ -9,7 +9,7 @@ import scala.concurrent.Future
 import scala.concurrent.duration.DurationLong
 import scala.util.Random
 
-class SimpleService extends SimpleApi {
+class SimpleImpl extends SimpleApi {
   /////////////////
   override def hello(name: String): Future[String] = {
     Future.successful(s"Hello $name")

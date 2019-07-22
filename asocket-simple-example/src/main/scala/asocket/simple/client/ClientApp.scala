@@ -5,12 +5,12 @@ import akka.stream.scaladsl.Source
 import akka.stream.{ActorMaterializer, Materializer}
 import asocket.borer.codecs.ASocketCodecs
 import asocket.core.client.ASocketClient
-import csw.simple.api.SimpleCodecs
+import csw.simple.api.Codecs
 import io.rsocket.transport.akka.client.TcpClientTransport
 
 import scala.concurrent.ExecutionContext
 
-object SimpleClientApp extends SimpleCodecs with ASocketCodecs {
+object ClientApp extends Codecs with ASocketCodecs {
   def main(args: Array[String]): Unit = {
     implicit val system: ActorSystem  = ActorSystem("server")
     implicit val mat: Materializer    = ActorMaterializer()

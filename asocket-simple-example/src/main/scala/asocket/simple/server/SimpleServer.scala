@@ -6,16 +6,16 @@ import asocket.borer.codecs.ASocketCodecs
 import asocket.core.api.AbstractASocket
 import asocket.core.api.FromPayload.{PayloadSourceFrom, RichPayloadFrom}
 import asocket.core.api.ToPayload.{RichFutureTo, RichSourceTo}
-import csw.simple.api.SimpleCodecs
-import csw.simple.api.SimpleRequest._
-import csw.simple.impl.SimpleService
+import csw.simple.api.Codecs
+import csw.simple.api.Messages._
+import csw.simple.impl.SimpleImpl
 import io.rsocket._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class SimpleServer(simpleService: SimpleService)(implicit ec: ExecutionContext)
+class SimpleServer(simpleService: SimpleImpl)(implicit ec: ExecutionContext)
     extends AbstractASocket
-    with SimpleCodecs
+    with Codecs
     with ASocketCodecs {
 
   override def requestResponse(payload: Payload): Future[Payload] = payload.to[RequestResponse] match {
@@ -41,7 +41,7 @@ class SimpleServer(simpleService: SimpleService)(implicit ec: ExecutionContext)
             simpleService.helloAll(s.map(_.asInstanceOf[Hello].name).prepend(Source.single(name))).toPayloadS[String]
           case Some(Square(number)) =>
             simpleService.squareAll(s.map(_.asInstanceOf[Square].number).prepend(Source.single(number))).toPayloadS[Int]
-          case _ => Source.empty
+          case None => Source.empty
         }
     }
   }

@@ -6,12 +6,12 @@ import asocket.borer.codecs.ASocketCodecs
 import asocket.core.api.ASocket
 import asocket.core.api.FromPayload.{PayloadFutureFrom, PayloadSourceFrom}
 import asocket.core.api.ToPayload.{RichInputTo, RichSourceTo}
-import csw.simple.api.SimpleRequest._
-import csw.simple.api.{SimpleApi, SimpleCodecs}
+import csw.simple.api.Messages._
+import csw.simple.api.{SimpleApi, Codecs}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class SimpleClient(socket: ASocket)(implicit ec: ExecutionContext) extends SimpleApi with SimpleCodecs with ASocketCodecs {
+class SimpleClient(socket: ASocket)(implicit ec: ExecutionContext) extends SimpleApi with Codecs with ASocketCodecs {
   override def hello(name: String): Future[String] = {
     socket.requestResponse(Hello(name).toPayload[RequestResponse]).toF[String]
   }

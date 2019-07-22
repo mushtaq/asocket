@@ -2,22 +2,12 @@ package csw.simple.api
 
 import akka.Done
 import com.github.ghik.silencer.silent
-import csw.simple.api.SimpleRequest.{
-  FireAndForget,
-  GetNames,
-  GetNumbers,
-  Hello,
-  Ping,
-  Publish,
-  RequestResponse,
-  RequestStream,
-  Square
-}
+import csw.simple.api.Messages._
 import io.bullet.borer.derivation.ArrayBasedCodecs.deriveCodecForUnaryCaseClass
 import io.bullet.borer.derivation.MapBasedCodecs._
 import io.bullet.borer.{Cbor, Codec, Target}
 
-trait SimpleCodecs {
+trait Codecs {
   implicit val target: Target = Cbor
 
   implicit lazy val doneCodec: Codec[Done] = Codec.implicitly[String].bimap[Done](_ => "done", _ => Done)

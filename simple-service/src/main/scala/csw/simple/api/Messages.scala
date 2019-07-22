@@ -1,6 +1,6 @@
 package csw.simple.api
 
-object SimpleRequest {
+object Messages {
   sealed trait RequestResponse
   case class Hello(name: String) extends RequestResponse
   case class Square(number: Int) extends RequestResponse
