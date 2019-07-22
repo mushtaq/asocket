@@ -1,10 +1,10 @@
-package asocket.event.client
+package asocket.simple.client
 
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, Materializer}
 import asocket.borer.codecs.ASocketCodecs
 import asocket.core.client.ASocketClient
-import csw.event.api.SimpleCodecs
+import csw.simple.api.SimpleCodecs
 import io.rsocket.transport.akka.client.TcpClientTransport
 
 import scala.concurrent.ExecutionContext

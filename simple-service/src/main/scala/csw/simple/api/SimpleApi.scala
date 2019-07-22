@@ -1,4 +1,4 @@
-package csw.event.api
+package csw.simple.api
 
 import scala.concurrent.Future
 

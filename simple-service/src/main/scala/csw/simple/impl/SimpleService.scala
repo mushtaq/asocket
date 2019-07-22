@@ -1,6 +1,6 @@
-package csw.event.impl
+package csw.simple.impl
 
-import csw.event.api.SimpleApi
+import csw.simple.api.SimpleApi
 
 import scala.concurrent.Future
 

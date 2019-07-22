@@ -1,4 +1,4 @@
-package csw.event.api
+package csw.simple.api
 
 sealed trait SimpleRequest
 case class HelloRequest(name: String) extends SimpleRequest

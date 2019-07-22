@@ -1,24 +1,21 @@
 package asocket.ping.example
 
-import akka.actor.ActorSystem
-import akka.stream.{ActorMaterializer, Materializer}
-import asocket.core.server.ASocketServer
-import io.rsocket.transport.akka.server.TcpServerTransport
+import java.util.concurrent.ThreadLocalRandom
 
-import scala.concurrent.ExecutionContext
+import asocket.core.api.AbstractASocket
+import io.rsocket._
+import io.rsocket.util.ByteBufPayload
 
-object PingServer {
-  def main(args: Array[String]): Unit = {
+import scala.concurrent.Future
 
-    implicit val system: ActorSystem  = ActorSystem("server")
-    implicit val mat: Materializer    = ActorMaterializer()
-    implicit val ec: ExecutionContext = system.dispatcher
+class PingServer(data: Array[Byte]) extends AbstractASocket {
+  ThreadLocalRandom.current.nextBytes(data)
+  val pong: Payload = ByteBufPayload.create(data)
 
-    val transport = {
-      new TcpServerTransport("0.0.0.0", 6000)
-//      new WebsocketServerTransport("0.0.0.0", 7000)
-    }
+  def this() = this(new Array[Byte](1024))
 
-    new ASocketServer().start(new PingSocket(), transport)
+  override def requestResponse(payload: Payload): Future[Payload] = {
+    payload.release
+    Future.successful(pong.retain)
   }
 }

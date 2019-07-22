@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono
 import scala.compat.java8.FutureConverters.FutureOps
 import scala.concurrent.ExecutionContext
 
-object PingClient {
+object PingClientApp {
   def main(args: Array[String]): Unit = {
 
     implicit val system: ActorSystem  = ActorSystem("server")

@@ -17,9 +17,9 @@ lazy val `root` = project
   .aggregate(
     `asocket-borer`,
     `asocket-core`,
-    `asocket-event-example`,
+    `asocket-simple-example`,
     `asocket-ping-example`,
-    `event-service`
+    `simple-service`
   )
 
 lazy val `asocket-borer` = project
@@ -39,8 +39,8 @@ lazy val `asocket-core` = project
     )
   )
 
-lazy val `asocket-event-example` = project
-  .dependsOn(`event-service`, `asocket-core`, `asocket-borer`)
+lazy val `asocket-simple-example` = project
+  .dependsOn(`simple-service`, `asocket-core`, `asocket-borer`)
   .settings(
     libraryDependencies ++= Seq(
       `rsocket-transport-akka`
@@ -57,7 +57,7 @@ lazy val `asocket-ping-example` = project
     )
   )
 
-lazy val `event-service` = project
+lazy val `simple-service` = project
   .settings(
     libraryDependencies ++= Seq(
       `borer-core`,

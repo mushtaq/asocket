@@ -1,10 +1,10 @@
-package asocket.event.client
+package asocket.simple.client
 
 import asocket.borer.codecs.ASocketCodecs
 import asocket.core.api.ASocket
 import asocket.core.api.FromPayload.RichFuturePayload
 import asocket.core.api.ToPayload.RichInput
-import csw.event.api.{HelloRequest, SimpleApi, SimpleCodecs, SimpleRequest, SquareRequest}
+import csw.simple.api.{HelloRequest, SimpleApi, SimpleCodecs, SimpleRequest, SquareRequest}
 
 import scala.concurrent.{ExecutionContext, Future}
 

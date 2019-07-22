@@ -1,4 +1,4 @@
-package csw.event.api
+package csw.simple.api
 
 import io.bullet.borer.derivation.ArrayBasedCodecs.deriveCodecForUnaryCaseClass
 import io.bullet.borer.derivation.MapBasedCodecs._

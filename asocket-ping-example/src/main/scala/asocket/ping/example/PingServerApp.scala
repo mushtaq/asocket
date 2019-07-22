@@ -1,14 +1,13 @@
-package asocket.event.server
+package asocket.ping.example
 
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, Materializer}
 import asocket.core.server.ASocketServer
-import csw.event.impl.SimpleService
 import io.rsocket.transport.akka.server.TcpServerTransport
 
 import scala.concurrent.ExecutionContext
 
-object SimpleServerApp {
+object PingServerApp {
   def main(args: Array[String]): Unit = {
 
     implicit val system: ActorSystem  = ActorSystem("server")
@@ -20,7 +19,6 @@ object SimpleServerApp {
 //      new WebsocketServerTransport("0.0.0.0", 7000)
     }
 
-    val simpleService = new SimpleService
-    new ASocketServer().start(new SimpleServer(simpleService), transport)
+    new ASocketServer().start(new PingServer(), transport)
   }
 }
