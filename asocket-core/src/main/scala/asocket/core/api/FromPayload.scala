@@ -11,14 +11,14 @@ trait FromPayload[T] {
 
 object FromPayload {
   implicit class RichPayloadFrom(payload: Payload) {
-    def to[T: FromPayload]: T = implicitly[FromPayload[T]].fromPayload(payload)
+    def as[T: FromPayload]: T = implicitly[FromPayload[T]].fromPayload(payload)
   }
 
   implicit class PayloadFutureFrom(payloadF: Future[Payload]) {
-    def toF[T: FromPayload](implicit ec: ExecutionContext): Future[T] = payloadF.map(_.to[T])
+    def as[T: FromPayload](implicit ec: ExecutionContext): Future[T] = payloadF.map(_.as[T])
   }
 
   implicit class PayloadSourceFrom[Mat](payloads: Source[Payload, Mat]) {
-    def toS[T: FromPayload]: Source[T, Mat] = payloads.map(_.to[T])
+    def as[T: FromPayload]: Source[T, Mat] = payloads.map(_.as[T])
   }
 }

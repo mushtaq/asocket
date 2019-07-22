@@ -18,29 +18,29 @@ class SimpleServer(simpleService: SimpleImpl)(implicit ec: ExecutionContext)
     with Codecs
     with ASocketCodecs {
 
-  override def requestResponse(payload: Payload): Future[Payload] = payload.to[RequestResponse] match {
-    case Hello(name)    => simpleService.hello(name).toPayloadF
-    case Square(number) => simpleService.square(number).toPayloadF
+  override def requestResponse(payload: Payload): Future[Payload] = payload.as[RequestResponse] match {
+    case Hello(name)    => simpleService.hello(name).payload
+    case Square(number) => simpleService.square(number).payload
   }
 
-  override def fireAndForget(payload: Payload): Future[Done] = payload.to[FireAndForget] match {
+  override def fireAndForget(payload: Payload): Future[Done] = payload.as[FireAndForget] match {
     case Ping(msg)       => simpleService.ping(msg)
     case Publish(number) => simpleService.publish(number)
   }
 
-  override def requestStream(payload: Payload): Source[Payload, NotUsed] = payload.to[RequestStream] match {
-    case GetNames(size)          => simpleService.getNames(size).toPayloadS
-    case GetNumbers(divisibleBy) => simpleService.getNumbers(divisibleBy).toPayloadS
+  override def requestStream(payload: Payload): Source[Payload, NotUsed] = payload.as[RequestStream] match {
+    case GetNames(size)          => simpleService.getNames(size).payload
+    case GetNumbers(divisibleBy) => simpleService.getNumbers(divisibleBy).payload
   }
 
   override def requestChannel(payloads: Source[Payload, NotUsed]): Source[Payload, NotUsed] = {
-    payloads.toS[RequestResponse].prefixAndTail(1).flatMapConcat {
+    payloads.as[RequestResponse].prefixAndTail(1).flatMapConcat {
       case (xs, s) =>
         xs.headOption match {
           case Some(Hello(name)) =>
-            simpleService.helloAll(s.map(_.asInstanceOf[Hello].name).prepend(Source.single(name))).toPayloadS[String]
+            simpleService.helloAll(s.collect { case Hello(x) => x }.prepend(Source.single(name))).payload
           case Some(Square(number)) =>
-            simpleService.squareAll(s.map(_.asInstanceOf[Square].number).prepend(Source.single(number))).toPayloadS[Int]
+            simpleService.squareAll(s.collect { case Square(x) => x }.prepend(Source.single(number))).payload
           case None => Source.empty
         }
     }

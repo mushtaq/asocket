@@ -11,14 +11,14 @@ trait ToPayload[T] {
 
 object ToPayload {
   implicit class RichInputTo[T](input: T) {
-    def toPayload[S >: T: ToPayload]: Payload = implicitly[ToPayload[S]].toPayload(input)
+    def payload[S >: T: ToPayload]: Payload = implicitly[ToPayload[S]].toPayload(input)
   }
 
   implicit class RichFutureTo[T](input: Future[T]) {
-    def toPayloadF[S >: T: ToPayload](implicit ec: ExecutionContext): Future[Payload] = input.map(_.toPayload[S])
+    def payload[S >: T: ToPayload](implicit ec: ExecutionContext): Future[Payload] = input.map(_.payload[S])
   }
 
   implicit class RichSourceTo[T, Mat](input: Source[T, Mat]) {
-    def toPayloadS[S >: T: ToPayload]: Source[Payload, Mat] = input.map(_.toPayload[S])
+    def payload[S >: T: ToPayload]: Source[Payload, Mat] = input.map(_.payload[S])
   }
 }
