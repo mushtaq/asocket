@@ -2,8 +2,8 @@ package asocket.examples.client
 
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, Materializer}
-import asocket.codec.FromPayload.{RichFuturePayload, RichPayload}
-import asocket.codec.ToPayload.RichInput
+import asocket.core.api.FromPayload.RichFuturePayload
+import asocket.core.api.ToPayload.RichInput
 import asocket.core.client.ASocketClient
 import asocket.examples.api.{HelloRequest, SimpleCodecs, SimpleRequest, SquareRequest}
 import io.rsocket.transport.akka.client.TcpClientTransport

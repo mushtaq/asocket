@@ -1,6 +1,5 @@
-package asocket.codec
+package asocket.core.api
 
-import io.bullet.borer.{Decoder, Target}
 import io.rsocket.Payload
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -10,9 +9,6 @@ trait FromPayload[T] {
 }
 
 object FromPayload {
-  implicit def viaBorer[T: Decoder](implicit target: Target): FromPayload[T] = { payload =>
-    target.decode(payload.getData).to[T].value
-  }
 
   implicit class RichPayload(payload: Payload) {
     def to[T: FromPayload]: T = implicitly[FromPayload[T]].fromPayload(payload)

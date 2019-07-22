@@ -16,28 +16,18 @@ lazy val `root` = project
   .in(file("."))
   .aggregate(
     `asocket-examples`,
-    `asocket`,
     `asocket-core`
   )
 
 lazy val `asocket-examples` = project
-  .dependsOn(`asocket`)
-  .settings(
-    libraryDependencies ++= Seq(
-      `rsocket-test`,
-      `scalatest` % Test
-    )
-  )
-
-lazy val `asocket` = project
   .dependsOn(`asocket-core`)
   .settings(
     libraryDependencies ++= Seq(
       `rsocket-transport-akka`,
-      `akka-http`,
       `borer-core`,
       `borer-derivation`,
-      `borer-compat-akka`
+      `rsocket-test`,
+      `scalatest` % Test
     )
   )
 

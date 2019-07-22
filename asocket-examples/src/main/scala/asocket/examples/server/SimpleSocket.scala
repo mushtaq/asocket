@@ -1,8 +1,8 @@
 package asocket.examples.server
 
-import asocket.codec.FromPayload.RichPayload
-import asocket.codec.ToPayload.RichFutureInput
 import asocket.core.api.AbstractASocket
+import asocket.core.api.FromPayload.RichPayload
+import asocket.core.api.ToPayload.RichFutureInput
 import asocket.examples.api.{HelloRequest, SimpleCodecs, SimpleRequest, SquareRequest}
 import io.rsocket._
 
