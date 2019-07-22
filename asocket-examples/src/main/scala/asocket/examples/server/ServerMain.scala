@@ -14,11 +14,11 @@ object ServerMain {
     implicit val mat: Materializer    = ActorMaterializer()
     implicit val ec: ExecutionContext = system.dispatcher
 
-    val tcpTransport = new TcpServerTransport("0.0.0.0", 6000)
-//    val wsTransport                   = new WebsocketServerTransport("0.0.0.0", 7000)
+    val transport = {
+      new TcpServerTransport("0.0.0.0", 6000)
+//      new WebsocketServerTransport("0.0.0.0", 7000)
+    }
 
-    //  val socket = new PingSocket()
-    val socket = new SimpleSocket()
-    new ASocketServer().start(socket, tcpTransport)
+    new ASocketServer().start(new SimpleSocket(), transport)
   }
 }

@@ -1,4 +1,4 @@
-package asocket.examples.client
+package asocket.examples.zextra
 
 import java.time.Duration
 
