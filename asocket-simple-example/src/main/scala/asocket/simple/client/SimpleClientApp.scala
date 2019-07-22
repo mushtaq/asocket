@@ -1,6 +1,7 @@
 package asocket.simple.client
 
 import akka.actor.ActorSystem
+import akka.stream.scaladsl.Source
 import akka.stream.{ActorMaterializer, Materializer}
 import asocket.borer.codecs.ASocketCodecs
 import asocket.core.client.ASocketClient
@@ -24,8 +25,14 @@ object SimpleClientApp extends SimpleCodecs with ASocketCodecs {
     val clientF = socketF.map(new SimpleClient(_))
 
     clientF.foreach { client =>
-      client.sayHello("mushtaq").foreach(println)
+      client.hello("mushtaq").foreach(println)
       client.square(9).foreach(println)
+      client.helloAll(Source(List("a", "b", "c"))).runForeach(println)
+      client.squareAll(Source(List(8, 4, 12))).runForeach(println)
+      client.ping("I am here").foreach(println)
+      client.publish(100).foreach(println)
+      client.getNames(10).runForeach(println)
+      client.getNumbers(7).runForeach(println)
     }
   }
 }

@@ -7,6 +7,8 @@ object Dependencies {
   val `akka-stream`            = "com.typesafe.akka" %% "akka-stream"            % "2.5.23"
   val `rsocket-core`           = "io.rsocket"        % "rsocket-core"            % "0.11.18"
   val `rsocket-test`           = "io.rsocket"        % "rsocket-test"            % "0.11.18"
+  val `silencer-lib`           = "com.github.ghik"   %% "silencer-lib"           % "1.4.1"
+  val `silencer-plugin`        = "com.github.ghik"   %% "silencer-plugin"        % "1.4.1"
 }
 
 object Borer {

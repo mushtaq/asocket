@@ -8,7 +8,21 @@ inThisBuild(
     organization := "com.github.mushtaq.asocket",
     organizationName := "ThoughtWorks",
     resolvers += Resolver.jcenterRepo,
-    scalafmtOnCompile := true
+    scalafmtOnCompile := true,
+    scalacOptions ++= Seq(
+      "-encoding",
+      "UTF-8",
+      "-feature",
+      "-unchecked",
+      "-deprecation",
+      "-Xlint:_,-missing-interpolator",
+      "-Ywarn-dead-code"
+      //      "-Xprint:typer"
+    ),
+    libraryDependencies ++= Seq(
+      compilerPlugin(`silencer-plugin`),
+      `silencer-lib` % Provided
+    )
   )
 )
 
@@ -61,6 +75,7 @@ lazy val `simple-service` = project
   .settings(
     libraryDependencies ++= Seq(
       `borer-core`,
-      `borer-derivation`
+      `borer-derivation`,
+      `akka-stream`
     )
   )
