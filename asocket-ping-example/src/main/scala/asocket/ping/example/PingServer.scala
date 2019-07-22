@@ -1,4 +1,4 @@
-package asocket.examples.zextra
+package asocket.ping.example
 
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, Materializer}

@@ -1,4 +1,4 @@
-package asocket.examples.api
+package csw.event.api
 
 sealed trait SimpleRequest
 case class HelloRequest(name: String) extends SimpleRequest

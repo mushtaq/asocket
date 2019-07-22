@@ -1,24 +1,22 @@
 package asocket.event.server
 
-import akka.actor.ActorSystem
-import akka.stream.{ActorMaterializer, Materializer}
-import asocket.core.server.ASocketServer
-import io.rsocket.transport.akka.server.TcpServerTransport
+import asocket.borer.codecs.ASocketCodecs
+import asocket.core.api.AbstractASocket
+import asocket.core.api.FromPayload.RichPayload
+import asocket.core.api.ToPayload.RichFutureInput
+import csw.event.api.{HelloRequest, SimpleCodecs, SimpleRequest, SquareRequest}
+import csw.event.impl.SimpleService
+import io.rsocket._
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
-object SimpleServer {
-  def main(args: Array[String]): Unit = {
+class SimpleServer(simpleService: SimpleService)(implicit ec: ExecutionContext)
+    extends AbstractASocket
+    with SimpleCodecs
+    with ASocketCodecs {
 
-    implicit val system: ActorSystem  = ActorSystem("server")
-    implicit val mat: Materializer    = ActorMaterializer()
-    implicit val ec: ExecutionContext = system.dispatcher
-
-    val transport = {
-      new TcpServerTransport("0.0.0.0", 6000)
-//      new WebsocketServerTransport("0.0.0.0", 7000)
-    }
-
-    new ASocketServer().start(new SimpleSocket(), transport)
+  override def requestResponse(payload: Payload): Future[Payload] = payload.to[SimpleRequest] match {
+    case HelloRequest(name) => simpleService.sayHello(name).toPayloadF
+    case SquareRequest(x)   => simpleService.square(x).toPayloadF
   }
 }

@@ -1,4 +1,4 @@
-package asocket.examples.api
+package csw.event.api
 
 import io.bullet.borer.derivation.ArrayBasedCodecs.deriveCodecForUnaryCaseClass
 import io.bullet.borer.derivation.MapBasedCodecs._
