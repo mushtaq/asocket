@@ -9,8 +9,6 @@ import scala.concurrent.ExecutionContext
 
 object ServerMain {
   def main(args: Array[String]): Unit = {
-    //  val socket = new PingSocket()
-    val socket = new SimpleSocket()
 
     implicit val system: ActorSystem  = ActorSystem("server")
     implicit val mat: Materializer    = ActorMaterializer()
@@ -19,6 +17,8 @@ object ServerMain {
     val tcpTransport = new TcpServerTransport("0.0.0.0", 6000)
 //    val wsTransport                   = new WebsocketServerTransport("0.0.0.0", 7000)
 
+    //  val socket = new PingSocket()
+    val socket = new SimpleSocket()
     new ASocketServer().start(socket, tcpTransport)
   }
 }

@@ -2,7 +2,7 @@ package asocket.examples.client
 
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, Materializer}
-import asocket.codec.FromPayload.RichPayload
+import asocket.codec.FromPayload.{RichFuturePayload, RichPayload}
 import asocket.codec.ToPayload.RichInput
 import asocket.core.client.ASocketClient
 import asocket.examples.api.{HelloRequest, SimpleCodecs, SimpleRequest, SquareRequest}
@@ -20,8 +20,8 @@ object SimpleClient extends SimpleCodecs {
 //    val wsTransport  = new WebsocketClientTransport(WebSocketRequest.fromTargetUriString(s"ws://localhost:7000"))
 
     new ASocketClient().socket(tcpTransport).foreach { socket =>
-      socket.requestResponse(HelloRequest("mushtaq").toPayload[SimpleRequest]).foreach(x => println(x.to[String]))
-      socket.requestResponse(SquareRequest(9).toPayload[SimpleRequest]).foreach(x => println(x.to[Int]))
+      socket.requestResponse(HelloRequest("mushtaq").toPayload[SimpleRequest]).toF[String].foreach(println)
+      socket.requestResponse(SquareRequest(9).toPayload[SimpleRequest]).toF[Int].foreach(println)
     }
   }
 }
