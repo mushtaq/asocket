@@ -10,15 +10,15 @@ trait ToPayload[T] {
 }
 
 object ToPayload {
-  implicit class RichInputTo[T](input: T) {
-    def payload[S >: T: ToPayload]: Payload = implicitly[ToPayload[S]].toPayload(input)
+  implicit class RichInputTo[T: ToPayload](input: T) {
+    def payload: Payload = implicitly[ToPayload[T]].toPayload(input)
   }
 
-  implicit class RichFutureTo[T](input: Future[T]) {
-    def payload[S >: T: ToPayload](implicit ec: ExecutionContext): Future[Payload] = input.map(_.payload[S])
+  implicit class RichFutureTo[T: ToPayload](input: Future[T]) {
+    def payload(implicit ec: ExecutionContext): Future[Payload] = input.map(_.payload)
   }
 
-  implicit class RichSourceTo[T, Mat](input: Source[T, Mat]) {
-    def payload[S >: T: ToPayload]: Source[Payload, Mat] = input.map(_.payload[S])
+  implicit class RichSourceTo[T: ToPayload, Mat](input: Source[T, Mat]) {
+    def payload: Source[Payload, Mat] = input.map(_.payload)
   }
 }

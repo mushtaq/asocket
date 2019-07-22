@@ -13,34 +13,34 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class SimpleClient(socket: ASocket)(implicit ec: ExecutionContext) extends SimpleApi with Codecs with ASocketCodecs {
   override def hello(name: String): Future[String] = {
-    socket.requestResponse(Hello(name).payload[RequestResponse]).as[String]
+    socket.requestResponse(Hello(name).payload).as[String]
   }
 
   override def square(number: Int): Future[Int] = {
-    socket.requestResponse(Square(number).payload[RequestResponse]).as[Int]
+    socket.requestResponse(Square(number).payload).as[Int]
   }
 
   override def getNames(size: Int): Source[String, NotUsed] = {
-    socket.requestStream(GetNames(size).payload[RequestStream]).as[String]
+    socket.requestStream(GetNames(size).payload).as[String]
   }
 
   override def getNumbers(divisibleBy: Int): Source[Int, NotUsed] = {
-    socket.requestStream(GetNumbers(divisibleBy).payload[RequestStream]).as[Int]
+    socket.requestStream(GetNumbers(divisibleBy).payload).as[Int]
   }
 
   override def helloAll(names: Source[String, NotUsed]): Source[String, NotUsed] = {
-    socket.requestChannel(names.map(Hello).payload[RequestResponse]).as[String]
+    socket.requestChannel(names.map(Hello).payload).as[String]
   }
 
   override def squareAll(numbers: Source[Int, NotUsed]): Source[Int, NotUsed] = {
-    socket.requestChannel(numbers.map(Square).payload[RequestResponse]).as[Int]
+    socket.requestChannel(numbers.map(Square).payload).as[Int]
   }
 
   override def ping(msg: String): Future[Done] = {
-    socket.fireAndForget(Ping(msg).payload[FireAndForget])
+    socket.fireAndForget(Ping(msg).payload)
   }
 
   override def publish(number: Int): Future[Done] = {
-    socket.fireAndForget(Publish(number).payload[FireAndForget])
+    socket.fireAndForget(Publish(number).payload)
   }
 }

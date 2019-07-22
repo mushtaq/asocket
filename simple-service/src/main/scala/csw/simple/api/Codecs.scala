@@ -12,21 +12,21 @@ trait Codecs {
 
   implicit lazy val doneCodec: Codec[Done] = Codec.implicitly[String].bimap[Done](_ => "done", _ => Done)
 
-  implicit val requestResponseCodec: Codec[RequestResponse] = {
+  implicit def requestResponseCodec[T <: RequestResponse]: Codec[T] = {
     @silent implicit val helloCodec: Codec[Hello]   = deriveCodecForUnaryCaseClass[Hello]
     @silent implicit val squareCodec: Codec[Square] = deriveCodecForUnaryCaseClass[Square]
-    deriveCodec[RequestResponse]
+    deriveCodec[RequestResponse].asInstanceOf[Codec[T]]
   }
 
-  implicit val requestStreamCodec: Codec[RequestStream] = {
+  implicit def requestStreamCodec[T <: RequestStream]: Codec[T] = {
     @silent implicit val getNamesCodec: Codec[GetNames]     = deriveCodecForUnaryCaseClass[GetNames]
     @silent implicit val getNumbersCodec: Codec[GetNumbers] = deriveCodecForUnaryCaseClass[GetNumbers]
-    deriveCodec[RequestStream]
+    deriveCodec[RequestStream].asInstanceOf[Codec[T]]
   }
 
-  implicit val fireAndForgetCodec: Codec[FireAndForget] = {
+  implicit def fireAndForgetCodec[T <: FireAndForget]: Codec[T] = {
     @silent implicit val getNamesCodec: Codec[Ping]      = deriveCodecForUnaryCaseClass[Ping]
     @silent implicit val getNumbersCodec: Codec[Publish] = deriveCodecForUnaryCaseClass[Publish]
-    deriveCodec[FireAndForget]
+    deriveCodec[FireAndForget].asInstanceOf[Codec[T]]
   }
 }
