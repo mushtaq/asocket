@@ -29,11 +29,11 @@ class SimpleClient(socket: ASocket)(implicit ec: ExecutionContext) extends Simpl
   }
 
   override def helloAll(names: Source[String, NotUsed]): Source[String, NotUsed] = {
-    socket.requestChannel(names.map(Hello).payload).as[String]
+    socket.requestChannel(names.map(HelloAll).payload).as[String]
   }
 
   override def squareAll(numbers: Source[Int, NotUsed]): Source[Int, NotUsed] = {
-    socket.requestChannel(numbers.map(Square).payload).as[Int]
+    socket.requestChannel(numbers.map(SquareAll).payload).as[Int]
   }
 
   override def ping(msg: String): Future[Done] = {

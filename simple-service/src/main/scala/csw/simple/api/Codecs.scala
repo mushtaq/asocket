@@ -29,4 +29,10 @@ trait Codecs {
     @silent implicit val getNumbersCodec: Codec[Publish] = deriveCodecForUnaryCaseClass[Publish]
     deriveCodec[FireAndForget].asInstanceOf[Codec[T]]
   }
+
+  implicit def requestChannelCodec[T <: RequestChannel]: Codec[T] = {
+    @silent implicit val helloAllCodec: Codec[HelloAll]   = deriveCodecForUnaryCaseClass[HelloAll]
+    @silent implicit val squareAllCodec: Codec[SquareAll] = deriveCodecForUnaryCaseClass[SquareAll]
+    deriveCodec[RequestChannel].asInstanceOf[Codec[T]]
+  }
 }

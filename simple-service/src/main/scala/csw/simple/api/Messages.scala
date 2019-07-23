@@ -12,4 +12,8 @@ object Messages {
   sealed trait FireAndForget
   case class Ping(msg: String)    extends FireAndForget
   case class Publish(number: Int) extends FireAndForget
+
+  sealed trait RequestChannel
+  case class HelloAll(msg: String)  extends RequestChannel
+  case class SquareAll(number: Int) extends RequestChannel
 }

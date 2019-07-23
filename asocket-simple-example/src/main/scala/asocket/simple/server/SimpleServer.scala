@@ -34,13 +34,13 @@ class SimpleServer(simpleService: SimpleImpl)(implicit ec: ExecutionContext)
   }
 
   override def requestChannel(payloads: Source[Payload, NotUsed]): Source[Payload, NotUsed] = {
-    payloads.as[RequestResponse].prefixAndTail(1).flatMapConcat {
+    payloads.as[RequestChannel].prefixAndTail(1).flatMapConcat {
       case (xs, s) =>
         xs.headOption match {
-          case Some(Hello(name)) =>
-            simpleService.helloAll(s.collect { case Hello(x) => x }.prepend(Source.single(name))).payload
-          case Some(Square(number)) =>
-            simpleService.squareAll(s.collect { case Square(x) => x }.prepend(Source.single(number))).payload
+          case Some(HelloAll(name)) =>
+            simpleService.helloAll(s.collect { case HelloAll(x) => x }.prepend(Source.single(name))).payload
+          case Some(SquareAll(number)) =>
+            simpleService.squareAll(s.collect { case SquareAll(x) => x }.prepend(Source.single(number))).payload
           case None => Source.empty
         }
     }
