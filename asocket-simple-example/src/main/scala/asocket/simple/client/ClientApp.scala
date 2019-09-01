@@ -1,12 +1,13 @@
 package asocket.simple.client
 
 import akka.actor.ActorSystem
+import akka.http.scaladsl.model.ws.WebSocketRequest
 import akka.stream.scaladsl.Source
 import akka.stream.{ActorMaterializer, Materializer}
 import asocket.borer.codecs.ASocketCodecs
 import asocket.core.client.ASocketClient
 import csw.simple.api.Codecs
-import io.rsocket.transport.akka.client.TcpClientTransport
+import io.rsocket.transport.akka.client.{TcpClientTransport, WebsocketClientTransport}
 
 import scala.concurrent.ExecutionContext
 
@@ -17,8 +18,8 @@ object ClientApp extends Codecs with ASocketCodecs {
     implicit val ec: ExecutionContext = system.dispatcher
 
     val transport = {
-      new TcpClientTransport("localhost", 6000)
-//      new WebsocketClientTransport(WebSocketRequest.fromTargetUriString(s"ws://localhost:7000"))
+//      new TcpClientTransport("localhost", 6000)
+      new WebsocketClientTransport(WebSocketRequest.fromTargetUriString(s"ws://localhost:7000"))
     }
 
     val socketF = new ASocketClient().socket(transport)
