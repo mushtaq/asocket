@@ -3,11 +3,12 @@ import Borer._
 
 inThisBuild(
   Seq(
-    scalaVersion := "2.12.8",
+    scalaVersion := "2.13.0",
     version := "0.1.0-SNAPSHOT",
     organization := "com.github.mushtaq.asocket",
     organizationName := "ThoughtWorks",
     resolvers += Resolver.jcenterRepo,
+    resolvers += "jitpack" at "https://jitpack.io",
     scalafmtOnCompile := true,
     scalacOptions ++= Seq(
       "-encoding",
